@@ -22,9 +22,6 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .favorites img {
-      width: 150px;
-    }
   </style>
   <body>
     <div id="app"></div>
@@ -38,7 +35,7 @@
       function CatItem(props) {
         return (
           <li>
-            <img src={props.img} />
+            <img src={props.img} style={{ width: "150px", border: "1px solid red"}} />
           </li>
         )
       }
