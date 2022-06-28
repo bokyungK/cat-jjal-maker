@@ -84,19 +84,7 @@
         return <h1>{props.children}</h1>;
       };
 
-      const Form = () => {
-        // const counterState = React.useState(1);
-        // const counter = counterState[0];
-        // const setCounter = counterState[1];
-        // 위 세 코드를 한 줄로!
-        const [counter, setCounter] = React.useState(1);
-
-        function handleFormSubmit(event) {
-          event.preventDefault();
-          console.log("폼 전송됨");
-          setCounter(counter + 1);
-        }
-
+      const Form = ({ handleFormSubmit }) => {
         return (
           <form onSubmit={handleFormSubmit}>
             <input
@@ -109,17 +97,27 @@
         );
       };
 
-      const app = (
-        <div>
-          <Title>1번째 고양이 가라사대</Title>
-          <Form />
-          <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
-          <Favorites />
-        </div>
-      );
+      const App = () => {
+        const [counter, setCounter] = React.useState(1);
+
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+          setCounter(counter + 1);
+        }
+
+        return (
+          <div>
+            <Title>{counter}번째 고양이 가라사대</Title>
+            <Form handleFormSubmit={handleFormSubmit} />
+            <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
+            <Favorites />
+          </div>
+        );
+      };
 
       const 여기다가그려 = document.querySelector("#app");
-      ReactDOM.render(app, 여기다가그려);
+      ReactDOM.render(<App />, 여기다가그려);
     </script>
   </body>
 </html>
