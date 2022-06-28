@@ -26,8 +26,14 @@
   <body>
     <div id="app"></div>
 
-    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script type="text/babel">
       console.log("야옹");
@@ -35,9 +41,12 @@
       function CatItem(props) {
         return (
           <li>
-            <img src={props.img} style={{ width: "150px", border: "1px solid red"}} />
+            <img
+              src={props.img}
+              style={{ width: "150px", border: "1px solid red" }}
+            />
           </li>
-        )
+        );
       }
 
       function Favorites() {
@@ -46,10 +55,10 @@
             <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn" />
             <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript" />
           </ul>
-        )
+        );
       }
 
-      const MainCard = ({img}) => {
+      const MainCard = ({ img }) => {
         function handleHeartClick() {
           console.log("하트 눌렀음");
         }
@@ -61,30 +70,44 @@
         return (
           <div className="main-card">
             <img src={img} alt="고양이" width="400" />
-            <button onClick={handleHeartClick} onMouseOver={handleHeartMouseClick}>🤍</button>
-        </div>
-        )
-      }
+            <button
+              onClick={handleHeartClick}
+              onMouseOver={handleHeartMouseClick}
+            >
+              🤍
+            </button>
+          </div>
+        );
+      };
 
       const Title = (props) => {
-        return (
-          <h1>{props.children}</h1>
-        )
-      }
+        return <h1>{props.children}</h1>;
+      };
 
       const Form = () => {
+        // const counterState = React.useState(1);
+        // const counter = counterState[0];
+        // const setCounter = counterState[1];
+        // 위 세 코드를 한 줄로!
+        const [counter, setCounter] = React.useState(1);
+
         function handleFormSubmit(event) {
           event.preventDefault();
-          console.log("폼 전송됨")
+          console.log("폼 전송됨");
+          setCounter(counter + 1);
         }
 
         return (
           <form onSubmit={handleFormSubmit}>
-            <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
             <button type="submit">생성</button>
           </form>
-        )
-      }
+        );
+      };
 
       const app = (
         <div>
@@ -92,10 +115,10 @@
           <Form />
           <MainCard img="https://cataas.com/cat/60b73094e04e18001194a309/says/react" />
           <Favorites />
-        </div>  
+        </div>
       );
 
-      const 여기다가그려 = document.querySelector('#app');
+      const 여기다가그려 = document.querySelector("#app");
       ReactDOM.render(app, 여기다가그려);
     </script>
   </body>
