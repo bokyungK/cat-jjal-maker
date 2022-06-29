@@ -72,11 +72,27 @@
         return <h1>{props.children}</h1>;
       };
 
-      const Form = ({ handleFormSubmit }) => {
+      const Form = () => {
         const [value, setValue] = React.useState("");
+        const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
+        const [errorMessage, setErrorMessage] = React.useState("");
 
         function handleInputChange(e) {
-          setValue(e.target.value.toUpperCase());
+          const userValue = e.target.value;
+          if (includesHangul(userValue)) {
+            setErrorMessage("한글은 입력할 수 없습니다.");
+          } else {
+            setErrorMessage("");
+          }
+          setValue(userValue.toUpperCase());
+        }
+
+        function handleFormSubmit(e) {
+          e.preventDefault();
+          setErrorMessage("");
+          if (value === "") {
+            setErrorMessage("빈 값으로 만들 수 없습니다.");
+          }
         }
 
         return (
@@ -89,6 +105,7 @@
               onChange={handleInputChange}
             />
             <button type="submit">생성</button>
+            <p style={{ color: "red" }}>{errorMessage}</p>
           </form>
         );
       };
@@ -120,7 +137,7 @@
         return (
           <div>
             <Title>{counter}번째 고양이 가라사대</Title>
-            <Form handleFormSubmit={handleFormSubmit} />
+            <Form />
             <MainCard img={mainCat} handleHeartClick={handleHeartClick} />
             <Favorites favoriteCat={favoriteCat} />
           </div>
