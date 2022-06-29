@@ -59,11 +59,11 @@
         );
       }
 
-      const MainCard = ({ img, handleHeartClick }) => {
+      const MainCard = ({ img, onHeartClick }) => {
         return (
           <div className="main-card">
             <img src={img} alt="고양이" width="400" />
-            <button onClick={handleHeartClick}>🤍</button>
+            <button onClick={onHeartClick}>🤍</button>
           </div>
         );
       };
@@ -72,7 +72,7 @@
         return <h1>{props.children}</h1>;
       };
 
-      const Form = () => {
+      const Form = ({ updateMainCat }) => {
         const [value, setValue] = React.useState("");
         const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
         const [errorMessage, setErrorMessage] = React.useState("");
@@ -92,7 +92,9 @@
           setErrorMessage("");
           if (value === "") {
             setErrorMessage("빈 값으로 만들 수 없습니다.");
+            return;
           }
+          updateMainCat();
         }
 
         return (
@@ -122,23 +124,20 @@
         const [mainCat, setMainCat] = React.useState(CAT1);
         const [favoriteCat, setFavoriteCat] = React.useState([CAT1, CAT2]);
 
-        function handleFormSubmit(event) {
-          event.preventDefault();
-          console.log("폼 전송됨");
+        function updateMainCat() {
           setCounter(counter + 1);
           setMainCat(CAT2);
         }
 
         function handleHeartClick() {
-          console.log("하트 눌렀음");
           setFavoriteCat([...favoriteCat, CAT3]);
         }
 
         return (
           <div>
             <Title>{counter}번째 고양이 가라사대</Title>
-            <Form />
-            <MainCard img={mainCat} handleHeartClick={handleHeartClick} />
+            <Form updateMainCat={updateMainCat} />
+            <MainCard img={mainCat} onHeartClick={handleHeartClick} />
             <Favorites favoriteCat={favoriteCat} />
           </div>
         );
