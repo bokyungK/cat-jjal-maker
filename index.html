@@ -121,13 +121,17 @@
         const CAT3 =
           "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
 
-        const [counter, setCounter] = React.useState(1);
+        const [counter, setCounter] = React.useState(
+          Number(localStorage.getItem("counter"))
+        );
         const [mainCat, setMainCat] = React.useState(CAT1);
         const [favoriteCat, setFavoriteCat] = React.useState([CAT1, CAT2]);
 
         function updateMainCat() {
-          setCounter(counter + 1);
           setMainCat(CAT2);
+          const nextCounter = counter + 1;
+          setCounter(nextCounter);
+          localStorage.setItem("counter", nextCounter);
         }
 
         function handleHeartClick() {
