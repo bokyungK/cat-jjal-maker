@@ -176,9 +176,17 @@
         }
 
         function handleHeartClick() {
-          const nextFavorites = [...favoriteCat, mainCat];
-          setFavoriteCat(nextFavorites);
-          jsonLocalStorage.setItem("favorites", nextFavorites);
+          if (favoriteCat.includes(mainCat)) {
+            const nextFavorites = [...favoriteCat].filter((item) => {
+              return item !== mainCat;
+            });
+            jsonLocalStorage.setItem("favorites", nextFavorites);
+            setFavoriteCat(nextFavorites);
+          } else {
+            const nextFavorites = [...favoriteCat, mainCat];
+            jsonLocalStorage.setItem("favorites", nextFavorites);
+            setFavoriteCat(nextFavorites);
+          }
         }
 
         return (
